@@ -18,4 +18,24 @@ function divide(a, b){
     return a / b;
 }
 
-console.log(add(60, 3))
+function operate(operator, a, b){
+    switch (operator) {
+        case "+":
+        return add(a, b)
+
+        case "-":
+        return subtract(a, b)
+
+        case "*":
+        return multiply(a, b)
+
+        case "/":
+        return divide(a, b)
+
+        default:
+            break;
+    }
+
+   
+}
+console.log(operate( "-" , 36, 2))
