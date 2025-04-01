@@ -7,8 +7,9 @@ body{
 }
 
 #container{
-    height: 514px;
-    width: 395px;
+    box-sizing: border-box;
+    height: 488px;
+    width: 379px;
     padding: 10px;
     background-color: #2f3c4f;
     border: 2px solid black;
@@ -34,14 +35,16 @@ body{
 .buttonContainer{
     margin-top: 10px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 5px;
 }
 
 .btn{
     box-sizing: border-box;
-    height: 80px;
-    width: 95px;
+    height: 70px;
+    width: 85px;
     background-color: #fdbd5d;
     border: 2px solid black;
     border-radius: 10px;
@@ -54,7 +57,7 @@ body{
 }
 
 #zero{
-    flex-basis: 195px;
+    flex-basis: 175px;
 }
 
 .clear{
