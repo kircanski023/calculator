@@ -39,3 +39,24 @@ function operate(operator, a, b){
    
 }
 console.log(operate( "-" , 36, 2))
+
+let display = document.querySelector(".display")
+let numbersNode = document.querySelectorAll(".operand")
+let numbersArray = Array.from(numbersNode);
+
+function addToDisplay(){
+    let displayContent = "";
+    numbersArray.map((operand) => {
+            operand.addEventListener("click", (e) => {
+            if(display.textContent.length < 10){
+                display.textContent = displayContent + operand.textContent;
+                displayContent = display.textContent;
+            }
+            else {
+                e.defaultPrevented;
+            }
+        })
+    })
+}
+
+addToDisplay()
