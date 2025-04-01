@@ -49,7 +49,7 @@ function addToDisplay(){
     numbersArray.map((operand) => {
             operand.addEventListener("click", (e) => {
             operand.style.backgroundColor = "#df7848"   
-            if(display.textContent.length < 10){
+            if(display.textContent.length < 8){
                 display.textContent = displayContent + operand.textContent;
                 displayContent = display.textContent;
             }
