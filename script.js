@@ -1,4 +1,4 @@
-let firstNumber = 0;
+let firstNumber = "";
 const operator = "+-*/";
 let secondNumber = 0;
 
@@ -45,13 +45,13 @@ let numbersNode = document.querySelectorAll(".operand")
 let numbersArray = Array.from(numbersNode);
 
 function addToDisplay(){
-    let displayContent = "";
+
     numbersArray.map((operand) => {
             operand.addEventListener("click", (e) => {
             operand.style.backgroundColor = "#df7848"   
             if(display.textContent.length < 8){
-                display.textContent = displayContent + operand.textContent;
-                displayContent = display.textContent;
+                display.textContent = firstNumber + operand.textContent;
+                firstNumber = display.textContent;
             }
             else {
                 e.defaultPrevented;
