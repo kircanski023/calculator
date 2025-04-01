@@ -8,8 +8,8 @@ body{
 
 #container{
     box-sizing: border-box;
-    height: 488px;
-    width: 379px;
+    height: 438px;
+    width: 339px;
     padding: 10px;
     background-color: #2f3c4f;
     border: 2px solid black;
@@ -43,8 +43,8 @@ body{
 
 .btn{
     box-sizing: border-box;
-    height: 70px;
-    width: 85px;
+    height: 60px;
+    width: 75px;
     background-color: #fdbd5d;;
     border: 2px solid black;
     border-radius: 10px;
@@ -57,7 +57,7 @@ body{
 }
 
 #zero{
-    flex-basis: 175px;
+    flex-basis: 155px;
 }
 
 .clear{
