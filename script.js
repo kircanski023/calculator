@@ -48,6 +48,7 @@ function addToDisplay(){
     let displayContent = "";
     numbersArray.map((operand) => {
             operand.addEventListener("click", (e) => {
+            operand.style.backgroundColor = "#df7848"   
             if(display.textContent.length < 10){
                 display.textContent = displayContent + operand.textContent;
                 displayContent = display.textContent;
@@ -56,6 +57,7 @@ function addToDisplay(){
                 e.defaultPrevented;
             }
         })
+       operand.addEventListener("mousedown", () => operand.style.backgroundColor = "#f8c983")
     })
 }
 
