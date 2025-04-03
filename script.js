@@ -59,7 +59,7 @@ function addToDisplay(){
                 console.log(`First number: ${firstNumber}`)
             }
             //Display second number
-            else if(operator.length > 0) {
+            else if(operator.length > 0 && firstNumber.length !== 0) {
                 if(secondNumber.length < 8){
                     display.textContent = secondNumber + operand.textContent;
                     secondNumber = display.textContent;
@@ -71,6 +71,11 @@ function addToDisplay(){
             }
             //Display first number   
             else if (firstNumber.length < 8){
+                // when "-" operator is clicked frist 
+                if(firstNumber.length === 0){
+                    firstNumber = operator.concat(firstNumber);
+                    display.textContent = firstNumber
+                }
                 display.textContent = firstNumber + operand.textContent;
                 firstNumber = display.textContent;
                 console.log(`First number: ${firstNumber}`)
@@ -92,8 +97,6 @@ function addOperator(){
 }
 
 function calculate(){
-    addToDisplay()
-    addOperator()
     equalOperator.addEventListener("click", () => {
         result = operate(operator, +firstNumber, +secondNumber);
         display.textContent = result;
@@ -105,6 +108,8 @@ function calculate(){
     })
 }
 
+addToDisplay()
+addOperator()
 calculate()
 
 
