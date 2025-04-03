@@ -41,11 +41,11 @@ function operate(operator, a, b){
 }
 
 let display = document.querySelector(".display")
-let numbersNode = document.querySelectorAll(".operand")
-let numbersArray = Array.from(numbersNode);
-let operatorsNode = document.querySelectorAll(".operator");
-let operatorsArray = Array.from(operatorsNode);
-let equalOperator = document.querySelector(".equal");
+const numbersNode = document.querySelectorAll(".operand")
+const numbersArray = Array.from(numbersNode);
+const operatorsNode = document.querySelectorAll(".operator");
+const operatorsArray = Array.from(operatorsNode);
+const equalOperator = document.querySelector(".equal");
 
 function addToDisplay(){
 
@@ -110,8 +110,19 @@ function calculate(){
     console.log(result);
 }
 
-const equalIsPressed = equalOperator.addEventListener("click", () => {
-    calculate();
+function clear(){
+    firstNumber = "";
+    operator = "";
+    display.textContent = "0";
+}
+
+const equalIsPressed = equalOperator.addEventListener("click", (e) => {
+    if(firstNumber.length === 0 || operator.length === 0)
+        e.preventDefault();
+    else if(firstNumber.length !== 0 && operator.length !== 0 && secondNumber.length === 0){
+        clear();
+    }
+    else calculate();
 })
 
 addToDisplay()
