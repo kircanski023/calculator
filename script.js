@@ -47,6 +47,7 @@ const operatorsNode = document.querySelectorAll(".operator");
 const operatorsArray = Array.from(operatorsNode);
 const equalOperator = document.querySelector(".equal");
 const clearButton = document.querySelector(".clear");
+const deleteButton = document.querySelector(".delete");
 
 function addToDisplay(){
 
@@ -127,10 +128,30 @@ const equalIsPressed = equalOperator.addEventListener("click", (e) => {
     else calculate();
 })
 
-const clearIsPressed = clearButton.addEventListener("click", () => clear() )
+const clearIsPressed = clearButton.addEventListener("click", () => clear())
+const deleteIsPressed = deleteButton.addEventListener("click", (e) => {
+    if(display.textContent === "0" || display.textContent === ""){
+        e.preventDefault();   
+    }
+    else {
+        let arr = display.textContent.split("")
+        arr.splice(arr.length - 1, 1).join("")
+        display.textContent = arr.join("")
+        if(display.textContent === ""){
+            clear();
+        }
+        else if(secondNumber.length === 0){
+            firstNumber = display.textContent
+        }
+        else {
+            secondNumber = display.textContent
+        }
+    }
+})
 
 addToDisplay()
 addOperator()
 equalIsPressed
-clearIsPressed  
+clearIsPressed
+  
 
