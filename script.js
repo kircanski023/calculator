@@ -48,6 +48,8 @@ const operatorsArray = Array.from(operatorsNode);
 const equalOperator = document.querySelector(".equal");
 const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
+const decimalButton = document.querySelector(".decimal");
+
 
 function addToDisplay(){
 
@@ -149,9 +151,23 @@ const deleteIsPressed = deleteButton.addEventListener("click", (e) => {
     }
 })
 
+const decimalIsPressed = decimalButton.addEventListener("click", (e) =>{
+    if(display.textContent.includes(decimalButton.textContent)){
+        e.preventDefault();
+    }
+    else{
+        if(secondNumber.length === 0){
+            display.textContent = firstNumber.concat(decimalButton.textContent);
+            firstNumber = display.textContent;
+        }
+        else{
+            display.textContent = secondNumber.concat(decimalButton.textContent);
+            secondNumber = display.textContent;
+        }
+    }
+})
+
 addToDisplay()
 addOperator()
-equalIsPressed
-clearIsPressed
   
 
