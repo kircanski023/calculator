@@ -51,8 +51,15 @@ function addToDisplay(){
 
     numbersArray.map((operand) => {
             operand.addEventListener("click", (e) => {
+            if(result.length !== 0 && operator.length === 0){
+                result = ""
+                firstNumber = "";
+                display.textContent = firstNumber + operand.textContent;
+                firstNumber = display.textContent;
+                console.log(`First number: ${firstNumber}`)
+            }
             //Display second number
-            if(operator.length > 0) {
+            else if(operator.length > 0) {
                 if(secondNumber.length < 8){
                     display.textContent = secondNumber + operand.textContent;
                     secondNumber = display.textContent;
@@ -61,7 +68,7 @@ function addToDisplay(){
                 else {
                     e.preventDefault();
                 }
-            } 
+            }
             //Display first number   
             else if (firstNumber.length < 8){
                 display.textContent = firstNumber + operand.textContent;
@@ -89,7 +96,7 @@ function calculate(){
     addOperator()
     equalOperator.addEventListener("click", () => {
         result = operate(operator, +firstNumber, +secondNumber);
-        display.textContent = result; 
+        display.textContent = result;
         firstNumber = display.textContent;
         operator = "";
         secondNumber = "";
