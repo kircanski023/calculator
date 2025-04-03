@@ -1,6 +1,7 @@
 let firstNumber = "";
-const operator = "+-*/";
-let secondNumber = 0;
+let operator = "";
+let secondNumber = "";
+let result = "";
 
 function add(a, b){
     return a + b;
@@ -31,34 +32,72 @@ function operate(operator, a, b){
 
         case "/":
         return divide(a, b)
-
+        
         default:
             break;
     }
 
    
 }
-console.log(operate( "-" , 36, 2))
 
 let display = document.querySelector(".display")
 let numbersNode = document.querySelectorAll(".operand")
 let numbersArray = Array.from(numbersNode);
+let operatorsNode = document.querySelectorAll(".operator");
+let operatorsArray = Array.from(operatorsNode);
+let equalOperator = document.querySelector(".equal");
 
 function addToDisplay(){
 
     numbersArray.map((operand) => {
             operand.addEventListener("click", (e) => {
-            operand.style.backgroundColor = "#df7848"   
-            if(display.textContent.length < 8){
+            //Display second number
+            if(operator.length > 0) {
+                if(secondNumber.length < 8){
+                    display.textContent = secondNumber + operand.textContent;
+                    secondNumber = display.textContent;
+                    console.log(`Second number: ${secondNumber}`)
+                }
+                else {
+                    e.preventDefault();
+                }
+            } 
+            //Display first number   
+            else if (firstNumber.length < 8){
                 display.textContent = firstNumber + operand.textContent;
                 firstNumber = display.textContent;
+                console.log(`First number: ${firstNumber}`)
             }
             else {
-                e.defaultPrevented;
+                e.preventDefault();
             }
         })
-       operand.addEventListener("mousedown", () => operand.style.backgroundColor = "#f8c983")
     })
 }
 
-addToDisplay()
+function addOperator(){
+    operatorsArray.map((item) => {
+        item.addEventListener("click", () => {
+            operator = item.textContent;
+            console.log(operator);
+        })
+    })
+}
+
+function calculate(){
+    addToDisplay()
+    addOperator()
+    equalOperator.addEventListener("click", () => {
+        result = operate(operator, +firstNumber, +secondNumber);
+        display.textContent = result; 
+        firstNumber = display.textContent;
+        operator = "";
+        secondNumber = "";
+        console.log(result);
+        
+    })
+}
+
+calculate()
+
+
