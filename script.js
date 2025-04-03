@@ -49,6 +49,7 @@ const equalOperator = document.querySelector(".equal");
 const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
 const decimalButton = document.querySelector(".decimal");
+const percentButton = document.querySelector(".percent");
 
 
 function addToDisplay(){
@@ -164,6 +165,17 @@ const decimalIsPressed = decimalButton.addEventListener("click", (e) =>{
             display.textContent = secondNumber.concat(decimalButton.textContent);
             secondNumber = display.textContent;
         }
+    }
+})
+
+const percentIsPressed = percentButton.addEventListener("click", () => {
+    if(secondNumber.length === 0){
+        display.textContent = operate("/", +firstNumber, 100);
+        firstNumber = display.textContent;
+    }
+    else {
+        display.textContent = operate("/", +secondNumber, 100);
+        secondNumber = display.textContent;
     }
 })
 
