@@ -46,6 +46,7 @@ const numbersArray = Array.from(numbersNode);
 const operatorsNode = document.querySelectorAll(".operator");
 const operatorsArray = Array.from(operatorsNode);
 const equalOperator = document.querySelector(".equal");
+const clearButton = document.querySelector(".clear");
 
 function addToDisplay(){
 
@@ -112,6 +113,7 @@ function calculate(){
 
 function clear(){
     firstNumber = "";
+    secondNumber = "";
     operator = "";
     display.textContent = "0";
 }
@@ -125,8 +127,10 @@ const equalIsPressed = equalOperator.addEventListener("click", (e) => {
     else calculate();
 })
 
+const clearIsPressed = clearButton.addEventListener("click", () => clear() )
+
 addToDisplay()
 addOperator()
 equalIsPressed
-
+clearIsPressed  
 
