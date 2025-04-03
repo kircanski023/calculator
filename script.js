@@ -51,6 +51,7 @@ function addToDisplay(){
 
     numbersArray.map((operand) => {
             operand.addEventListener("click", (e) => {
+            //When button is clicked after calculation
             if(result.length !== 0 && operator.length === 0){
                 result = ""
                 firstNumber = "";
@@ -71,7 +72,7 @@ function addToDisplay(){
             }
             //Display first number   
             else if (firstNumber.length < 8){
-                // when "-" operator is clicked frist 
+                // When "-" operator is clicked frist 
                 if(firstNumber.length === 0){
                     firstNumber = operator.concat(firstNumber);
                     display.textContent = firstNumber
@@ -90,6 +91,10 @@ function addToDisplay(){
 function addOperator(){
     operatorsArray.map((item) => {
         item.addEventListener("click", () => {
+            // Calculate if operator is pressed after both numbers are entered
+            if(firstNumber.length !== 0 && operator.length !==0 && secondNumber.length !==0){
+                calculate();
+            }
             operator = item.textContent;
             console.log(operator);
         })
@@ -97,19 +102,20 @@ function addOperator(){
 }
 
 function calculate(){
-    equalOperator.addEventListener("click", () => {
-        result = operate(operator, +firstNumber, +secondNumber);
-        display.textContent = result;
-        firstNumber = display.textContent;
-        operator = "";
-        secondNumber = "";
-        console.log(result);
-        
-    })
+    result = operate(operator, +firstNumber, +secondNumber);
+    display.textContent = result;
+    firstNumber = display.textContent;
+    operator = "";
+    secondNumber = "";
+    console.log(result);
 }
+
+const equalIsPressed = equalOperator.addEventListener("click", () => {
+    calculate();
+})
 
 addToDisplay()
 addOperator()
-calculate()
+equalIsPressed
 
 
