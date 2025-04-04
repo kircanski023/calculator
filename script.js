@@ -78,7 +78,7 @@ function addToDisplay(){
             //Display first number   
             else if (firstNumber.length < 8){
                 // When "-" operator is clicked frist 
-                if(firstNumber.length === 0){
+                if(firstNumber.length === 0 && operator === "-"){
                     firstNumber = operator.concat(firstNumber);
                     display.textContent = firstNumber
                 }
