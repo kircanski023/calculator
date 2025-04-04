@@ -111,9 +111,6 @@ function calculate(){
     if(result.toString().length > 8){
         result = result.toExponential(3)
     }
-    else if(result % 1 !== 0){
-        result = Number(result).toFixed(1)
-    }
     display.textContent = result;
     firstNumber = display.textContent;
     operator = "";
@@ -181,7 +178,7 @@ const percentIsPressed = percentButton.addEventListener("click", () => {
     }
     else {
         secondNumber = operate("/", +secondNumber, 100);
-        secondNumber = secondNumber.toString().slice(0, 9);
+        secondNumber = secondNumber.toString().slice(0, 9)
         display.textContent = secondNumber;
     }
 })
