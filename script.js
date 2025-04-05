@@ -139,9 +139,9 @@ const equalIsClicked = equalOperator.addEventListener("click", (e) => {
     displayEqual(e);
 })
 
-function deleteFromDisplay(event){
-    if(display.textContent === "0" || display.textContent === ""){
-        event.preventDefault();   
+function deleteFromDisplay(){
+    if(display.textContent === "0" || display.textContent === "" || firstNumber === "0"){
+        clear();   
     }
     else {
         let arr = display.textContent.split("")
@@ -177,20 +177,20 @@ function displayDecimal(event){
 
 function displayPercent(){
     if(secondNumber.length === 0){
-        firstNumber = operate("/", +firstNumber, 100);
+        firstNumber = operate("/", firstNumber, 100).toExponential(2);
         firstNumber = firstNumber.toString().slice(0, 9)
         display.textContent = firstNumber
     }
     else {
-        secondNumber = operate("/", +secondNumber, 100);
+        secondNumber = operate("/", secondNumber, 100).toExponential(2);
         secondNumber = secondNumber.toString().slice(0, 9)
         display.textContent = secondNumber;
     }
 }
 
 const clearIsClicked = clearButton.addEventListener("click", () => clear())
-const deleteIsClicked = deleteButton.addEventListener("click", (e) => {
-    deleteFromDisplay(e)
+const deleteIsClicked = deleteButton.addEventListener("click", () => {
+    deleteFromDisplay()
 })
 
 const decimalIsClicked = decimalButton.addEventListener("click", (e) =>{
@@ -205,7 +205,7 @@ let numbers = "1234567890";
 let operatorStr = "/*-+"
 let keyPressed = addEventListener("keydown", (e) => {
         if(e.key === "Backspace") {
-            deleteFromDisplay(e);
+            deleteFromDisplay();
         }
         else if(e.key === "Escape"){
             clear();
