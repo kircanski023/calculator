@@ -51,65 +51,67 @@ const deleteButton = document.querySelector(".delete");
 const decimalButton = document.querySelector(".decimal");
 const percentButton = document.querySelector(".percent");
 
-
-function addToDisplay(){
-
-    numbersArray.map((operand) => {
-            operand.addEventListener("click", (e) => {
-            //When button is clicked after calculation
-            if(result.length !== 0 && operator.length === 0){
-                result = ""
-                firstNumber = "";
-                display.textContent = firstNumber + operand.textContent;
-                firstNumber = display.textContent;
-                console.log(`First number: ${firstNumber}`)
-            }
-            //Display second number
-            else if(operator.length > 0 && firstNumber.length !== 0) {
-                if(secondNumber.length < 8){
-                    display.textContent = secondNumber + operand.textContent;
-                    secondNumber = display.textContent;
-                    console.log(`Second number: ${secondNumber}`)
-                }
-                else {
-                    e.preventDefault();
-                }
-            }
-            //Display first number   
-            else if (firstNumber.length < 8){
-                // When "-" operator is clicked frist 
-                if(firstNumber.length === 0 && operator === "-"){
-                    firstNumber = operator.concat(firstNumber);
-                    display.textContent = firstNumber
-                }
-                display.textContent = firstNumber + operand.textContent;
-                firstNumber = display.textContent;
-                console.log(`First number: ${firstNumber}`)
+function addNumberToDisplay(event, number){
+        //When button is clicked after calculation
+        if(result.length !== 0 && operator.length === 0){
+            result = ""
+            firstNumber = "";
+            display.textContent = firstNumber + number;
+            firstNumber = display.textContent;
+            console.log(`First number: ${firstNumber}`)
+        }
+        //Display second number
+        else if(operator.length > 0 && firstNumber.length !== 0) {
+            if(secondNumber.length < 8){
+                display.textContent = secondNumber + number;
+                secondNumber = display.textContent;
+                console.log(`Second number: ${secondNumber}`)
             }
             else {
-                e.preventDefault();
+                event.preventDefault();
             }
-        })
-    })
+        }
+        //Display first number   
+        else if (firstNumber.length < 8){
+            // When "-" operator is clicked frist 
+            if(firstNumber.length === 0 && operator === "-"){
+                firstNumber = operator.concat(firstNumber);
+                display.textContent = firstNumber
+            }
+            display.textContent = firstNumber + number;
+            firstNumber = display.textContent;
+            console.log(`First number: ${firstNumber}`)
+        }
+        else {
+            event.preventDefault();
+        }
 }
 
-function addOperator(){
-    operatorsArray.map((item) => {
-        item.addEventListener("click", () => {
-            // Calculate if operator is pressed after both numbers are entered
-            if(firstNumber.length !== 0 && operator.length !==0 && secondNumber.length !==0){
-                calculate();
-            }
-            operator = item.textContent;
-            console.log(operator);
+let displayNumContent = numbersArray.map((operand) => {
+        operand.addEventListener("click", (e) => {
+            addNumberToDisplay(e, operand.textContent)
+        })       
+    })
+
+function addOperator(opr){
+    // Calculate if operator is pressed after both numbers are entered
+    if(firstNumber.length !== 0 && operator.length !==0 && secondNumber.length !==0){
+        calculate();
+    }
+    operator = opr;
+    console.log(operator);
+}
+
+let displayOperatorContent = operatorsArray.map((item) => {
+            item.addEventListener("click", () => {
+                addOperator(item.textContent);
         })
     })
-}
 
 function calculate(){
     result = operate(operator, +firstNumber, +secondNumber);
     if(result.toString().length > 8){
-        result = result.toExponential(3)
+        result = result.toExponential(2)
     }
     display.textContent = result;
     firstNumber = display.textContent;
@@ -124,19 +126,22 @@ function clear(){
     display.textContent = "0";
 }
 
-const equalIsPressed = equalOperator.addEventListener("click", (e) => {
+function displayEqual(event){
     if(firstNumber.length === 0 || operator.length === 0)
-        e.preventDefault();
+        event.preventDefault();
     else if(firstNumber.length !== 0 && operator.length !== 0 && secondNumber.length === 0){
         clear();
     }
     else calculate();
+}
+
+const equalIsClicked = equalOperator.addEventListener("click", (e) => {
+    displayEqual(e);
 })
 
-const clearIsPressed = clearButton.addEventListener("click", () => clear())
-const deleteIsPressed = deleteButton.addEventListener("click", (e) => {
+function deleteFromDisplay(event){
     if(display.textContent === "0" || display.textContent === ""){
-        e.preventDefault();   
+        event.preventDefault();   
     }
     else {
         let arr = display.textContent.split("")
@@ -152,11 +157,11 @@ const deleteIsPressed = deleteButton.addEventListener("click", (e) => {
             secondNumber = display.textContent
         }
     }
-})
+}
 
-const decimalIsPressed = decimalButton.addEventListener("click", (e) =>{
+function displayDecimal(event){
     if(display.textContent.includes(decimalButton.textContent)){
-        e.preventDefault();
+        event.preventDefault();
     }
     else{
         if(secondNumber.length === 0){
@@ -168,9 +173,9 @@ const decimalIsPressed = decimalButton.addEventListener("click", (e) =>{
             secondNumber = display.textContent;
         }
     }
-})
+}
 
-const percentIsPressed = percentButton.addEventListener("click", () => {
+function displayPercent(){
     if(secondNumber.length === 0){
         firstNumber = operate("/", +firstNumber, 100);
         firstNumber = firstNumber.toString().slice(0, 9)
@@ -181,9 +186,46 @@ const percentIsPressed = percentButton.addEventListener("click", () => {
         secondNumber = secondNumber.toString().slice(0, 9)
         display.textContent = secondNumber;
     }
+}
+
+const clearIsClicked = clearButton.addEventListener("click", () => clear())
+const deleteIsClicked = deleteButton.addEventListener("click", (e) => {
+    deleteFromDisplay(e)
 })
 
-addToDisplay()
-addOperator()
+const decimalIsClicked = decimalButton.addEventListener("click", (e) =>{
+    displayDecimal(e);
+})
+
+const percentIsClicked = percentButton.addEventListener("click", () => {
+    displayPercent();
+})
+
+let numbers = "1234567890";
+let operatorStr = "/*-+"
+let keyPressed = addEventListener("keydown", (e) => {
+        if(e.key === "Backspace") {
+            deleteFromDisplay(e);
+        }
+        else if(e.key === "Escape"){
+            clear();
+        }
+        else if(e.key === "."){
+            displayDecimal(e);
+        }
+        else if(e.key === "%"){
+            displayPercent();
+        }
+        else if(e.key === "="){
+            displayEqual(e);
+        }
+        else if(numbers.includes(e.key)){
+            addNumberToDisplay(e, e.key);
+        }
+        else if(operatorStr.includes(e.key)){
+            addOperator(e.key);
+        }
+    })
+
   
 
